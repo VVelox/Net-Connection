@@ -225,6 +225,7 @@ sub new{
 			  'recvq' => undef,
 			  'pid' => undef,
 			  'uid' => undef,
+			  'username' => undef,
 			  'state' => $args{'state'},
 			  'proto' => $args{'proto'},
 			  'local_ptr' => undef,
@@ -452,7 +453,7 @@ sub local_port{
 	return $_[0]->{'local_port'};
 }
 
-=head2 foreign_port_name
+=head2 local_port_name
 
 This returns the local port name.
 
@@ -467,6 +468,21 @@ sub local_port_name{
 	return $_[0]->{'local_port_name'};
 }
 
+=head2 foreign_ptr
+
+This returns the PTR for the local host.
+
+If one was not supplied or if it could not be found
+if resolving was enabled then undef will be returned.
+
+    my $l_ptr=$conn->local_ptr;
+
+=cut
+
+sub local_ptr{
+	return $_[0]->{'local_ptr'};
+}
+
 =head2 proto
 
 Returns the protocol in use by the connection.
@@ -479,6 +495,35 @@ Please note this value with vary slightly between OSes.
 
 sub proto{
 	return $_[0]->{'proto'};
+}
+
+=head2 recvq
+
+Returns the size of the recieve queue the connection.
+
+This may return undef.
+
+    my $recvq=$conn->recvq;
+
+=cut
+
+sub recvq{
+	return $_[0]->{'recvq'};
+}
+
+
+=head2 sendq
+
+Returns the size of the send queue the connection.
+
+This may return undef.
+
+    my $sendq=$conn->sendq;
+
+=cut
+
+sub sendq{
+	return $_[0]->{'sendq'};
 }
 
 =head2 state
