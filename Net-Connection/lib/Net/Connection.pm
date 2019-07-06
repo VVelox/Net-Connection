@@ -231,6 +231,7 @@ sub new{
 			  'local_ptr' => undef,
 			  'foreign_ptr' => undef,
 			  };
+	bless $self;
 
 	# Set these if defined
 	if (defined( $args{'sendq'} )){
@@ -344,32 +345,25 @@ sub new{
 
 	# resolve the UID/username if asked
 	if (
-		defined( $args{'uid_resolve'} ) &&
 		$args{'uid_resolve'} &&
 		defined( $self->{'uid'} )
 		){
-		if ( $self->{'uid'} =~ /^[0-9]+$/ ){
-			eval{
-				my @pwline=getpwuid( $self->{'uid'} );
-				if ( defined( $pwline[0] ) ){
-					$self->{'username'}=$pwline[0];
-				}
+		eval{
+			my @pwline=getpwuid( $self->{'uid'} );
+			if ( defined( $pwline[0] ) ){
+				$self->{'username'}=$pwline[0];
 			}
 		}
 	}elsif (
-			defined( $args{'uid_resolve'} ) &&
 			$args{'uid_resolve'} &&
-			defined( $self->{'username'} ) &&
 			( ! defined( $self->{'uid'} ) )
 		){
-		if ( $self->{'uid'} =~ /^[0-9]+$/ ){
 			eval{
 				my @pwline=getpwnam( $self->{'username'} );
 				if ( defined( $pwline[2] ) ){
-					$self->{'username'}=$pwline[2];
+					$self->{'uid'}=$pwline[2];
 				}
 			}
-		}
 	}
 
 	return $self;
