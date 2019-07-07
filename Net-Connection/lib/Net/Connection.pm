@@ -20,13 +20,47 @@ our $VERSION = '0.0.0';
 
 =head1 SYNOPSIS
 
+    use Net::Connection;
+
+    #create a hash ref with the desired values
+    my $args={
+              'foreign_host' => '1.2.3.4',
+              'local_host' => '4.3.2.1',
+              'foreign_port' => '22',
+              'local_port' => '11132',
+              'sendq' => '1',
+              'recvq' => '0',
+              'pid' => '34342',
+              'uid' => '1000',
+              'state' => 'ESTABLISHED',
+              'proto' => 'tcp4'
+              };
+    
+    # create the new object using the hash ref
+    my $conn=Net::Connection->new( $args );
+    
+    # the same thing, but this time resolve the UID to a username
+    $args->{'uid_resolve'}='1';
+    $conn=Net::Connection->new( $args );
+    
+    # now with PTR lookup
+    $args->{'ptrs'}='1';
+    $conn=Net::Connection->new( $args );
+    
+    # prints a bit of the connection information...
+    print "L Host:".$conn->local_host."\n".
+    "L Port:".$conn->local_host."\n".
+    "F Host:".$conn->foreign_host."\n".
+    "F Port:".$conn->foreign_host."\n";
+
 =head1 Methods
 
 =head2 new
 
 This initiates a new connection object.
 
-One argument is taken is taken 
+One argument is taken is taken and it is a hash reference.
+The minimum number of arguements is as below.
 
     local_host
     local_port
@@ -115,7 +149,7 @@ different forms of TCP, TCP4, tcp4, tcpv4, and the like.
 
 =head4 ptrs
 
-If is true, then 
+If is true, then attempt to look up the PTRs for the hosts.
 
 =head4 recvq
 
@@ -603,6 +637,10 @@ L<https://cpanratings.perl.org/d/Net-Connection>
 =item * Search CPAN
 
 L<https://metacpan.org/release/Net-Connection>
+
+=item * Repository
+
+L<http://gitea.eesdp.org/vvelox/Net-Connection>
 
 =back
 

@@ -1,16 +1,40 @@
 Net-Connection
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+This module crates a object that basically serves as a means to store basic
+connection information and retrieve it.
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+    use Net::Connection;
 
+    #create a hash ref with the desired values
+    my $args={
+              'foreign_host' => '1.2.3.4',
+              'local_host' => '4.3.2.1',
+              'foreign_port' => '22',
+              'local_port' => '11132',
+              'sendq' => '1',
+              'recvq' => '0',
+              'pid' => '34342',
+              'uid' => '1000',
+              'state' => 'ESTABLISHED',
+              'proto' => 'tcp4'
+              };
+    
+    # create the new object using the hash ref
+    my $conn=Net::Connection->new( $args );
+    
+    # the same thing, but this time resolve the UID to a username
+    $args->{'uid_resolve'}='1';
+    $conn=Net::Connection->new( $args );
+    
+    # now with PTR lookup
+    $args->{'ptrs'}='1';
+    $conn=Net::Connection->new( $args );
+    
+    # prints a bit of the connection information...
+    print "L Host:".$conn->local_host."\n".
+    "L Port:".$conn->local_host."\n".
+    "F Host:".$conn->foreign_host."\n".
+    "F Port:".$conn->foreign_host."\n";
 
 INSTALLATION
 
@@ -41,6 +65,9 @@ You can also look for information at:
 
     Search CPAN
         https://metacpan.org/release/Net-Connection
+
+    Repository
+		http://gitea.eesdp.org/vvelox/Net-Connection
 
 
 LICENSE AND COPYRIGHT
