@@ -500,7 +500,7 @@ sub local_port_name{
 	return $_[0]->{'local_port_name'};
 }
 
-=head2 foreign_ptr
+=head2 local_ptr
 
 This returns the PTR for the local host.
 
