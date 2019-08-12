@@ -1,6 +1,6 @@
 Revision history for Net-Connection
 
-0.2.0	 2019-07-11/00:00
+0.2.0	 2019-07-12/05:40
 		 - Add support for proc, pctmem, pctcpu, and wchan.
 
 0.1.0	 2019-07-28/21:45
